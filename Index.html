@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jan-David Soutar | Renaissance Weirdo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Archivo', sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        
+        .title-font {
+            font-family: 'Archivo Black', sans-serif;
+        }
+        
+        .hero-pattern {
+            background-color: #e5e5f7;
+            opacity: 0.8;
+            background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #e5e5f7 10px ), repeating-linear-gradient( #444cf755, #444cf7 );
+        }
+        
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim {
+            0% { clip: rect(31px, 9999px, 94px, 0); }
+            10% { clip: rect(112px, 9999px, 76px, 0); }
+            20% { clip: rect(85px, 9999px, 77px, 0); }
+            30% { clip: rect(27px, 9999px, 97px, 0); }
+            40% { clip: rect(64px, 9999px, 98px, 0); }
+            50% { clip: rect(61px, 9999px, 85px, 0); }
+            60% { clip: rect(99px, 9999px, 114px, 0); }
+            70% { clip: rect(34px, 9999px, 115px, 0); }
+            80% { clip: rect(98px, 9999px, 129px, 0); }
+            90% { clip: rect(43px, 9999px, 96px, 0); }
+            100% { clip: rect(82px, 9999px, 64px, 0); }
+        }
+        
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 119px, 0); }
+            10% { clip: rect(79px, 9999px, 66px, 0); }
+            20% { clip: rect(101px, 9999px, 114px, 0); }
+            30% { clip: rect(107px, 9999px, 73px, 0); }
+            40% { clip: rect(92px, 9999px, 91px, 0); }
+            50% { clip: rect(106px, 9999px, 122px, 0); }
+            60% { clip: rect(109px, 9999px, 102px, 0); }
+            70% { clip: rect(105px, 9999px, 124px, 0); }
+            80% { clip: rect(85px, 9999px, 89px, 0); }
+            90% { clip: rect(124px, 9999px, 111px, 0); }
+            100% { clip: rect(98px, 9999px, 60px, 0); }
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #ff00c1;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: 
+                typing 3.5s steps(40, end),
+                blink-caret .75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #ff00c1; }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-black text-white p-4 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="title-font text-2xl">JDS<span class="text-pink-500">*</span></a>
+            <div class="hidden md:flex space-x-6">
+                <a href="#about" class="hover:text-pink-500 transition">About</a>
+                <a href="#films" class="hover:text-pink-500 transition">Films</a>
+                <a href="#theater" class="hover:text-pink-500 transition">Theater</a>
+                <a href="#contact" class="hover:text-pink-500 transition">Contact</a>
+            </div>
+            <button class="md:hidden" id="menu-toggle">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        <div class="md:hidden hidden bg-black p-4" id="mobile-menu">
+            <div class="flex flex-col space-y-3">
+                <a href="#about" class="hover:text-pink-500 transition">About</a>
+                <a href="#films" class="hover:text-pink-500 transition">Films</a>
+                <a href="#theater" class="hover:text-pink-500 transition">Theater</a>
+                <a href="#contact" class="hover:text-pink-500 transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-pattern min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-30"></div>
+        <div class="container mx-auto px-4 z-10 text-center">
+            <h1 class="text-5xl md:text-8xl font-bold mb-6 title-font text-white glitch" data-text="JAN-DAVID SOUTAR">JAN-DAVID SOUTAR</h1>
+            <div class="typewriter text-xl md:text-3xl text-white mb-8">Filmmaker. Writer. Perpetual Weirdo.</div>
+            <div class="flex justify-center space-x-4">
+                <a href="#films" class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-full font-bold transition">Watch My Work</a>
+                <a href="#contact" class="bg-transparent border-2 border-white hover:bg-white hover:text-black text-white px-6 py-3 rounded-full font-bold transition">Hire Me</a>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-0 right-0 text-center">
+            <a href="#about" class="text-white animate-bounce inline-block">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-12 title-font text-center">WHO IS THIS GUY?</h2>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/3 mb-8 md:mb-0 flex justify-center">
+                    <div class="relative w-64 h-64 rounded-full overflow-hidden border-4 border-pink-500 shadow-lg">
+                        <img src="https://via.placeholder.com/300" alt="Jan-David Soutar" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-pink-500 opacity-0 hover:opacity-20 transition"></div>
+                    </div>
+                </div>
+                <div class="md:w-2/3 md:pl-12">
+                    <p class="text-lg mb-6">
+                        Jan-David Soutar is a Los Angeles-based filmmaker, writer, and occasional performer who creates work that's equal parts hilarious, disturbing, and strangely beautiful. With credits ranging from music videos to feature films to experimental theater, he refuses to be pigeonholed into any one category.
+                    </p>
+                    <p class="text-lg mb-6">
+                        His work has been described as "what would happen if David Lynch and John Waters had a baby who was raised by Tim & Eric" (this is a real quote from someone probably). Whether he's directing surreal music videos, writing absurdist plays, or crafting unsettling short films, Jan-David brings a unique voice that's impossible to ignore.
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                        <div class="bg-gray-100 p-4 rounded-lg text-center">
+                            <div class="text-3xl font-bold text-pink-500">15+</div>
+                            <div class="text-sm">Years in the Game</div>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg text-center">
+                            <div class="text-3xl font-bold text-pink-500">50+</div>
+                            <div class="text-sm">Projects Completed</div>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg text-center">
+                            <div class="text-3xl font-bold text-pink-500">∞</div>
+                            <div class="text-sm">Weird Ideas</div>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg text-center">
+                            <div class="text-3xl font-bold text-pink-500">1</div>
+                            <div class="text-sm">Beautiful Mind</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Films Section -->
+    <section id="films" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-12 title-font text-center">FILM & VIDEO WORK</h2>
+            <p class="text-center max-w-2xl mx-auto mb-12 text-lg">
+                From music videos that'll melt your brain to short films that'll haunt your dreams, here's a selection of Jan-David's visual work. Viewer discretion is advised (but encouraged).
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <div class="relative pb-[56.25%] overflow-hidden">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/BB5F9LVlyz0?si=8-Z1M4CSndivOViO" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">"Oh Constantine" Trailer</h3>
+                        <p class="text-gray-600 mb-4">Pitch Video for the absurdist play that took Hollywood Fringe by storm.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-pink-500">2025</span>
+                            <a href="https://youtu.be/BB5F9LVlyz0?si=8-Z1M4CSndivOViO$0" target="_blank" class="text-sm font-bold hover:text-pink-500 transition">View on Youtube →</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <div class="relative pb-[56.25%] overflow-hidden">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://player.vimeo.com/video/234567890" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">"Born A Snake"</h3>
+                        <p class="text-gray-600 mb-4">A poetic short film about a man making his way thru the challenges of the world.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-pink-500">2018</span>
+                            <a href="https://vimeo.com/288817485" target="_blank" class="text-sm font-bold hover:text-pink-500 transition">View on Vimeo →</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <div class="relative pb-[56.25%] overflow-hidden bg-black flex items-center justify-center">
+                        <div class="text-white text-center p-4">
+                            <i class="fas fa-play-circle text-5xl mb-2 opacity-50"></i>
+                            <p>Music Video - "Dream Eater"</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">"Structuralist Noir"</h3>
+                        <p class="text-gray-600 mb-4">A woman makes a disturbing discovery when she comes home.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-pink-500">2019</span>
+                            <a href="https://vimeo.com/341731015" target="_blank" class="text-sm font-bold hover:text-pink-500 transition">View on Vimeo →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="https://vimeo.com/mdlafilms" target="_blank" class="inline-flex items-center px-6 py-3 border-2 border-black rounded-full font-bold hover:bg-black hover:text-white transition">
+                    <i class="fab fa-vimeo-v mr-2"></i> See More on Vimeo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Theater Section -->
+    <section id="theater" class="py-20 bg-black text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-12 title-font text-center">THEATER & PERFORMANCE</h2>
+            <p class="text-center max-w-2xl mx-auto mb-12 text-lg opacity-80">
+                Because sometimes actors need to suffer live in front of an audience. Jan-David's theatrical work blends absurdity with deep emotional resonance (or so he claims).
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-8 items-center">
+                <div class="md:w-1/2">
+                    <div class="relative pb-[56.25%] overflow-hidden bg-gray-900 rounded-lg">
+                        <img src="https://via.placeholder.com/800x450" alt="Oh Constantine" class="absolute top-0 left-0 w-full h-full object-cover opacity-70">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fas fa-play-circle text-5xl text-pink-500 opacity-80"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-3xl font-bold mb-4 title-font">OH CONSTANTINE</h3>
+                    <p class="text-lg mb-6">
+                        A darkly comedic play about a man who may or may not be the reincarnation of Roman Emperor Constantine the Great. Premiered at the Hollywood Fringe Festival to bewildered audiences and confused critics.
+                    </p>
+                    <div class="mb-6">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-quote-left text-pink-500 mr-2"></i>
+                            <span class="font-bold">Critical Praise:</span>
+                        </div>
+                        <p class="italic opacity-80">
+                            "Equal parts hilarious and disturbing... like if Beckett wrote a sitcom set in hell." - LA Weekly
+                        </p>
+                    </div>
+                    <a href="https://www.hollywoodfringe.org/projects/11553" target="_blank" class="inline-flex items-center px-6 py-3 border-2 border-pink-500 rounded-full font-bold hover:bg-pink-500 hover:text-white transition">
+                        Hollywood Fringe Page <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+                <div class="bg-gray-900 p-6 rounded-lg">
+                    <h4 class="text-xl font-bold mb-3 title-font">OTHER THEATRICAL WORK</h4>
+                    <ul class="space-y-4">
+                        <li class="border-l-4 border-pink-500 pl-4">
+                            <h5 class="font-bold">"The Electric Baby" (2018)</h5>
+                            <p class="text-sm opacity-80">Director - A surreal comedy about parenting in the digital age</p>
+                        </li>
+                        <li class="border-l-4 border-pink-500 pl-4">
+                            <h5 class="font-bold">"Exit Strategy" (2016)</h5>
+                            <p class="text-sm opacity-80">Writer/Performer - One-man show about the end of the world</p>
+                        </li>
+                        <li class="border-l-4 border-pink-500 pl-4">
+                            <h5 class="font-bold">"The Most Beautiful Thing" (2014)</h5>
+                            <p class="text-sm opacity-80">Writer/Director - Experimental theater piece</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-gray-900 p-6 rounded-lg">
+                    <h4 class="text-xl font-bold mb-3 title-font">UPCOMING PROJECTS</h4>
+                    <ul class="space-y-4">
+                        <li class="border-l-4 border-pink-500 pl-4">
+                            <h5 class="font-bold">"The Infinite Jest-er"</h5>
+                            <p class="text-sm opacity-80">A multimedia theatrical experience about comedy and despair</p>
+                        </li>
+                        <li class="border-l-4 border-pink-500 pl-4">
+                            <h5 class="font-bold">"How to Disappear Completely"</h5>
+                            <p class="text-sm opacity-80">Interactive performance installation</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-12 title-font text-center">WANT TO MAKE SOMETHING WEIRD?</h2>
+            <p class="text-center max-w-2xl mx-auto mb-12 text-lg">
+                Whether you need a director for your bonkers music video, a writer for your avant-garde theater piece, or just someone to stare deeply into your soul, Jan-David is available for hire.
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/2">
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-bold mb-2">Your Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border-2 border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-bold mb-2">Your Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border-2 border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+                        </div>
+                        <div>
+                            <label for="project" class="block text-sm font-bold mb-2">Project Type</label>
+                            <select id="project" class="w-full px-4 py-2 border-2 border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+                                <option value="">Select one...</option>
+                                <option value="film">Film/Video Project</option>
+                                <option value="theater">Theater Project</option>
+                                <option value="writing">Writing Collaboration</option>
+                                <option value="other">Something Else Entirely</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-bold mb-2">Your Wild Idea</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-2 border-2 border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-black text-white px-6 py-3 rounded-full font-bold hover:bg-pink-500 transition">
+                            SEND INTO THE VOID
+                        </button>
+                    </form>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="bg-gray-100 p-8 rounded-lg h-full">
+                        <h3 class="text-2xl font-bold mb-6 title-font">OTHER WAYS TO CONNECT</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="text-pink-500 text-2xl mr-4 mt-1">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Email</h4>
+                                    <a href="mailto:hello@jandavidsoutar.com" class="hover:text-pink-500 transition">hello@jandavidsoutar.com</a>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="text-pink-500 text-2xl mr-4 mt-1">
+                                    <i class="fab fa-imdb"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">IMDb</h4>
+                                    <a href="https://www.imdb.com/name/nm2387259/" target="_blank" class="hover:text-pink-500 transition">Jan-David Soutar on IMDb</a>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="text-pink-500 text-2xl mr-4 mt-1">
+                                    <i class="fab fa-vimeo-v"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Vimeo</h4>
+                                    <a href="https://vimeo.com/mdlafilms" target="_blank" class="hover:text-pink-500 transition">MDLA Films on Vimeo</a>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="text-pink-500 text-2xl mr-4 mt-1">
+                                    <i class="fas fa-theater-masks"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Hollywood Fringe</h4>
+                                    <a href="https://www.hollywoodfringe.org/projects/11553" target="_blank" class="hover:text-pink-500 transition">Oh Constantine Project</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8 pt-6 border-t border-gray-300">
+                            <h4 class="font-bold mb-4">AVAILABILITY</h4>
+                            <p class="mb-4">Currently accepting:</p>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>Directing gigs</li>
+                                <li>Writing commissions</li>
+                                <li>Consulting on weird projects</li>
+                                <li>Existential conversations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="title-font text-2xl">JAN-DAVID SOUTAR<span class="text-pink-500">*</span></a>
+                    <p class="mt-2 opacity-80">Making strange things since before it was cool.</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://vimeo.com/mdlafilms" target="_blank" class="text-2xl hover:text-pink-500 transition">
+                        <i class="fab fa-vimeo-v"></i>
+                    </a>
+                    <a href="https://www.imdb.com/name/nm2387259/" target="_blank" class="text-2xl hover:text-pink-500 transition">
+                        <i class="fab fa-imdb"></i>
+                    </a>
+                    <a href="mailto:hello@jandavidsoutar.com" class="text-2xl hover:text-pink-500 transition">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center opacity-70 text-sm">
+                <p>© 2025 Jan-David Soutar. All rights reserved. All weirdness preserved.</p>
+                <p class="mt-2">This website may cause dizziness, euphoria, or existential dread.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+        
+        // Add some fun to the form
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Message sent to the void! Jan-David will respond if the stars align.');
+                form.reset();
+            });
+        }
+    </script>
+</body>
+</html>
