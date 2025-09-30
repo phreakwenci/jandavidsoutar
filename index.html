@@ -536,21 +536,35 @@
             <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center text-zappa-yellow frank-font glitch-text" data-text="CONNECT">CONNECT</h2>
             
             <div class="max-w-2xl mx-auto bg-zappa-purple bg-opacity-20 p-8 rounded-lg border border-zappa-purple">
-                <form class="space-y-6">
-                    <div>
-                        <label for="name" class="block text-zappa-yellow mb-2 frank-font">YOUR NAME</label>
-                        <input type="text" id="name" class="w-full px-4 py-3 bg-black border border-zappa-yellow rounded-md text-white focus:outline-none focus:ring-2 focus:ring-zappa-yellow">
-                    </div>
-                    <div>
-                        <label for="email" class="block text-zappa-yellow mb-2 frank-font">YOUR EMAIL</label>
-                        <input type="email" id="email" class="w-full px-4 py-3 bg-black border border-zappa-yellow rounded-md text-white focus:outline-none focus:ring-2 focus:ring-zappa-yellow">
-                    </div>
-                    <div>
-                        <label for="message" class="block text-zappa-yellow mb-2 frank-font">MESSAGE</label>
-                        <textarea id="message" rows="5" class="w-full px-4 py-3 bg-black border border-zappa-yellow rounded-md text-white focus:outline-none focus:ring-2 focus:ring-zappa-yellow"></textarea>
-                    </div>
-                    <button type="submit" class="w-full py-3 bg-zappa-yellow text-black rounded-md font-bold frank-font hover:bg-zappa-purple hover:text-white transition-all duration-300">SEND MESSAGE</button>
-                </form>
+               <form action="https://formsubmit.co/contact@jandavidsoutar.com" method="POST" class="space-y-6">
+    <!-- Optional hidden settings -->
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_subject" value="New message from jandavidsoutar.com">
+
+    <div>
+        <label for="name" class="block text-zappa-yellow mb-2 frank-font">YOUR NAME</label>
+        <input type="text" id="name" name="name" required
+            class="w-full px-4 py-3 bg-black border border-zappa-yellow rounded-md text-white focus:outline-none focus:ring-2 focus:ring-zappa-yellow">
+    </div>
+    
+    <div>
+        <label for="email" class="block text-zappa-yellow mb-2 frank-font">YOUR EMAIL</label>
+        <input type="email" id="email" name="email" required
+            class="w-full px-4 py-3 bg-black border border-zappa-yellow rounded-md text-white focus:outline-none focus:ring-2 focus:ring-zappa-yellow">
+    </div>
+    
+    <div>
+        <label for="message" class="block text-zappa-yellow mb-2 frank-font">MESSAGE</label>
+        <textarea id="message" name="message" rows="5" required
+            class="w-full px-4 py-3 bg-black border border-zappa-yellow rounded-md text-white focus:outline-none focus:ring-2 focus:ring-zappa-yellow"></textarea>
+    </div>
+    
+    <button type="submit"
+        class="w-full py-3 bg-zappa-yellow text-black rounded-md font-bold frank-font hover:bg-zappa-purple hover:text-white transition-all duration-300">
+        SEND MESSAGE
+    </button>
+</form>
+
             </div>
             
             <div class="mt-16 flex justify-center space-x-8">
