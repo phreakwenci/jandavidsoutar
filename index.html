@@ -471,78 +471,45 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold mb-12 title-font text-center">WANT TO MAKE SOMETHING WEIRD?</h2>
-            <p class="text-center max-w-2xl mx-auto mb-12 text-lg">
-                Whether you need a director for your bonkers music video, a writer for your avant-garde theater piece, or just someone to stare deeply into your soul, Jan-David is available for hire.
-            </p>
-   <form 
+   <section id="contact" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold mb-12 title-font text-center text-black uppercase tracking-tighter">WANT TO MAKE SOMETHING WEIRD?</h2>
+        <p class="text-center max-w-2xl mx-auto mb-12 text-lg text-gray-700">
+            Whether you need a director for your bonkers music video, a writer for your avant-garde theater piece, or just someone to stare deeply into your soul, Jan-David is available for hire.
+        </p>
 
-  action="https://formspree.io/f/mnjbzlzo" 
+        <form action="https://formspree.io/f/mnjbzlzo" method="POST" class="max-w-xl mx-auto space-y-6">
+            <div>
+                <label for="name" class="block text-sm font-bold mb-2 text-black uppercase">Your Name</label>
+                <input type="text" name="name" id="name" required class="w-full px-4 py-3 border-2 border-black rounded-lg bg-white text-black focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all">
+            </div>
 
-  method="POST" 
+            <div>
+                <label for="email" class="block text-sm font-bold mb-2 text-black uppercase">Your Email</label>
+                <input type="email" name="email" id="email" required class="w-full px-4 py-3 border-2 border-black rounded-lg bg-white text-black focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all">
+            </div>
 
-  class="space-y-6"
+            <div>
+                <label for="project" class="block text-sm font-bold mb-2 text-black uppercase">Project Type</label>
+                <select id="project" name="project-type" class="w-full px-4 py-3 border-2 border-black rounded-lg bg-white text-black focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all">
+                    <option value="film">Film/Video Project</option>
+                    <option value="theater">Theater Project</option>
+                    <option value="writing">Writing Collaboration</option>
+                    <option value="other">Something Else Entirely</option>
+                </select>
+            </div>
 
->
+            <div>
+                <label for="message" class="block text-sm font-bold mb-2 text-black uppercase">Your Wild Idea</label>
+                <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 border-2 border-black rounded-lg bg-white text-black focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all"></textarea>
+            </div>
 
-    <div>
-
-        <label for="name" class="block text-sm font-bold mb-2 text-text-primary">Your Name</label>
-
-        <input type="text" name="name" id="name" required class="w-full px-4 py-2 border-2 border-black rounded-lg bg-surface text-text-primary focus:outline-none focus:ring-2 focus:ring-pink-500">
-
+            <button type="submit" class="w-full bg-black text-white px-6 py-4 rounded-full font-bold hover:bg-pink-500 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl uppercase tracking-widest">
+                SEND INTO THE VOID
+            </button>
+        </form>
     </div>
-
-    
-
-    <div>
-
-        <label for="email" class="block text-sm font-bold mb-2 text-text-primary">Your Email</label>
-
-        <input type="email" name="email" id="email" required class="w-full px-4 py-2 border-2 border-black rounded-lg bg-surface text-text-primary focus:outline-none focus:ring-2 focus:ring-pink-500">
-
-    </div>
-
-    
-
-    <div>
-
-        <label for="project" class="block text-sm font-bold mb-2 text-text-primary">Project Type</label>
-
-        <select id="project" name="project-type" class="w-full px-4 py-2 border-2 border-black rounded-lg bg-surface text-text-primary focus:outline-none focus:ring-2 focus:ring-pink-500">
-
-            <option value="film">Film/Video Project</option>
-
-            <option value="theater">Theater Project</option>
-
-            <option value="writing">Writing Collaboration</option>
-
-            <option value="other">Something Else Entirely</option>
-
-        </select>
-
-    </div>
-
-    
-
-    <div>
-
-        <label for="message" class="block text-sm font-bold mb-2 text-text-primary">Your Wild Idea</label>
-
-        <textarea id="message" name="message" rows="5" required class="w-full px-4 py-2 border-2 border-black rounded-lg bg-surface text-text-primary focus:outline-none focus:ring-2 focus:ring-pink-500"></textarea>
-
-    </div>
-
-
-    <button type="submit" class="w-full bg-black text-white px-6 py-3 rounded-full font-bold hover:bg-pink-500 transition shadow-lg">
-
-        SEND INTO THE VOID
-
-    </button>
-
-</form>
+</section>
                 <div class="md:w-1/2">
                     <div class="bg-gray-100 p-8 rounded-lg h-full">
                         <h3 class="text-2xl font-bold mb-6 title-font">OTHER WAYS TO CONNECT</h3>
@@ -658,14 +625,29 @@
         });
         
         // Add some fun to the form
-        const form = document.querySelector('form');
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Message sent to the void! Jan-David will respond if the stars align.');
-                form.reset();
-            });
-        }
+const form = document.querySelector('form');
+if (form) {
+form.addEventListener('submit', function(e) {
+e.preventDefault(); // Stop the page from redirecting
+
+// Send the data to Formspree in the background
+fetch(form.action, {
+method: 'POST',
+body: new FormData(form),
+headers: {
+'Accept': 'application/json'
+}
+}).then(response => {
+if (response.ok) {
+// Now show your fun message because we know it actually sent!
+alert('Message sent to the void! Jan-David will respond if the stars align.');
+form.reset();
+} else {
+alert('The void is full. Please try again later.');
+}
+});
+});
+}
     </script>
 
 </html>
