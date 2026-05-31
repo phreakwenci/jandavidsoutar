@@ -3,653 +3,1541 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jan-David Soutar | Renaissance Weirdo</title>
+    <title>Jan-David Soutar | Writer. Director. Perpetual Weirdo.</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;700&display=swap');
-        
+        :root {
+            --black: #0a0a0a;
+            --white: #f2f0eb;
+            --pink: #e8135d;
+            --pink-dim: #a00d42;
+            --gray: #888;
+            --border: rgba(255,255,255,0.08);
+
+            --bp-bg: #1a0f08;
+            --bp-accent: #c17f3a;
+            --fd-bg: #0d0500;
+            --fd-accent: #e8621a;
+            --mt-bg: #0a0320;
+            --mt-accent: #c026d3;
+            --sa-bg: #0a0a12;
+            --sa-accent: #8b9dc3;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: 'Archivo', sans-serif;
-            background-color: #f8f8f8;
-            color: #333;
+            font-family: 'Libre Baskerville', Georgia, serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
         }
-        
-        .title-font {
-            font-family: 'Archivo Black', sans-serif;
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 200px;
         }
-        
-        .hero-pattern {
-            background-color: #000;
-            background-image: url('https://raw.githubusercontent.com/phreakwenci/jandavidsoutar/main/images/Touched%20up%20Hero%20Image%20-%201%20-%20Large%20Version.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+
+        /* ========================
+           NAV
+        ======================== */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10,10,10,0.88);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
         }
-        
+        .nav-logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+            color: var(--white);
+            text-decoration: none;
+        }
+        .nav-logo span { color: var(--pink); }
+        .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+        .nav-links a {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--white); }
+        .nav-cta {
+            color: var(--pink) !important;
+            border: 1px solid var(--pink);
+            padding: 0.45rem 1rem;
+        }
+        .nav-cta:hover { background: var(--pink); color: var(--white) !important; }
+
+        .mobile-toggle { display: none; background: none; border: none; color: var(--white); font-size: 1.4rem; cursor: pointer; }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 68px; left: 0; right: 0;
+            background: rgba(10,10,10,0.97);
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 2rem;
+            z-index: 99;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.82rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gray);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-toggle { display: block; }
+        }
+
+        /* ========================
+           HERO
+        ======================== */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding-top: 68px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 70% 50%, rgba(232,19,93,0.07) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .hero-text {
+            padding: 4rem 3rem 4rem 4rem;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-eyebrow {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--pink);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .hero-eyebrow::before {
+            content: '';
+            display: block;
+            width: 2rem;
+            height: 1px;
+            background: var(--pink);
+            flex-shrink: 0;
+        }
+
+        /* GLITCH — restored full-name version from v1 */
+        .hero-name {
+            font-family: 'Bebas Neue', cursive;
+            font-size: clamp(4rem, 8vw, 7rem);
+            line-height: 0.92;
+            letter-spacing: 0.03em;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: block;
+        }
         .glitch {
             position: relative;
+            display: inline-block;
+            color: var(--white);
         }
-        
         .glitch::before, .glitch::after {
             content: attr(data-text);
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            font-family: 'Bebas Neue', cursive;
+            font-size: inherit;
+            letter-spacing: inherit;
+            line-height: inherit;
+            background: var(--black);
         }
-        
         .glitch::before {
             left: 2px;
-            text-shadow: -2px 0 #ff00c1;
-            clip: rect(44px, 450px, 56px, 0);
-            animation: glitch-anim 5s infinite linear alternate-reverse;
+            text-shadow: -2px 0 var(--pink);
+            clip-path: inset(0 0 55% 0);
+            animation: glitchTop 3s infinite linear alternate-reverse;
         }
-        
         .glitch::after {
             left: -2px;
-            text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
-            clip: rect(44px, 450px, 56px, 0);
-            animation: glitch-anim2 5s infinite linear alternate-reverse;
+            text-shadow: 2px 0 #00fff9;
+            clip-path: inset(45% 0 0 0);
+            animation: glitchBottom 2.5s infinite linear alternate-reverse;
         }
-        
-        @keyframes glitch-anim {
-            0% { clip: rect(31px, 9999px, 94px, 0); }
-            10% { clip: rect(112px, 9999px, 76px, 0); }
-            20% { clip: rect(85px, 9999px, 77px, 0); }
-            30% { clip: rect(27px, 9999px, 97px, 0); }
-            40% { clip: rect(64px, 9999px, 98px, 0); }
-            50% { clip: rect(61px, 9999px, 85px, 0); }
-            60% { clip: rect(99px, 9999px, 114px, 0); }
-            70% { clip: rect(34px, 9999px, 115px, 0); }
-            80% { clip: rect(98px, 9999px, 129px, 0); }
-            90% { clip: rect(43px, 9999px, 96px, 0); }
-            100% { clip: rect(82px, 9999px, 64px, 0); }
+        @keyframes glitchTop {
+            0%, 100% { transform: translateX(0); }
+            10% { transform: translateX(-4px); }
+            20% { transform: translateX(3px); }
+            30% { transform: translateX(-2px); }
+            40% { transform: translateX(0); }
+            50% { transform: translateX(3px); }
+            60% { transform: translateX(-3px); }
+            70% { transform: translateX(1px); }
+            80% { transform: translateX(-1px); }
+            90% { transform: translateX(2px); }
         }
-        
-        @keyframes glitch-anim2 {
-            0% { clip: rect(65px, 9999px, 119px, 0); }
-            10% { clip: rect(79px, 9999px, 66px, 0); }
-            20% { clip: rect(101px, 9999px, 114px, 0); }
-            30% { clip: rect(107px, 9999px, 73px, 0); }
-            40% { clip: rect(92px, 9999px, 91px, 0); }
-            50% { clip: rect(106px, 9999px, 122px, 0); }
-            60% { clip: rect(109px, 9999px, 102px, 0); }
-            70% { clip: rect(105px, 9999px, 124px, 0); }
-            80% { clip: rect(85px, 9999px, 89px, 0); }
-            90% { clip: rect(124px, 9999px, 111px, 0); }
-            100% { clip: rect(98px, 9999px, 60px, 0); }
+        @keyframes glitchBottom {
+            0%, 100% { transform: translateX(0); }
+            15% { transform: translateX(3px); }
+            25% { transform: translateX(-3px); }
+            35% { transform: translateX(2px); }
+            45% { transform: translateX(-2px); }
+            55% { transform: translateX(0); }
+            65% { transform: translateX(4px); }
+            75% { transform: translateX(-4px); }
+            85% { transform: translateX(1px); }
+            95% { transform: translateX(-1px); }
         }
-        
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+        .hero-tagline {
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: rgba(242,240,235,0.55);
+            line-height: 1.75;
+            max-width: 400px;
+            margin-bottom: 2.5rem;
         }
-        
-        .typewriter {
+
+        .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn-primary {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            background: var(--pink);
+            color: var(--white);
+            padding: 0.85rem 1.75rem;
+            text-decoration: none;
+            transition: background 0.2s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover { background: var(--pink-dim); }
+        .btn-secondary {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: 1px solid rgba(242,240,235,0.2);
+            color: rgba(242,240,235,0.6);
+            padding: 0.85rem 1.75rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+        .btn-secondary:hover { border-color: var(--white); color: var(--white); }
+
+        .hero-image {
+            position: relative;
+            height: 100vh;
             overflow: hidden;
-            border-right: .15em solid #ff00c1;
-            white-space: nowrap;
-            margin: 0 auto;
-            letter-spacing: .15em;
-            animation: 
-                typing 3.5s steps(40, end),
-                blink-caret .75s step-end infinite;
         }
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            filter: contrast(1.05) saturate(0.8);
+        }
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, var(--black) 0%, transparent 35%),
+                        linear-gradient(to top, var(--black) 0%, transparent 20%);
+        }
+
+        @media (max-width: 768px) {
+            .hero { grid-template-columns: 1fr; min-height: auto; }
+            .hero-image { height: 55vw; order: -1; }
+            .hero-text { padding: 2.5rem 1.5rem; }
+        }
+
+        /* ========================
+           SHARED
+        ======================== */
+        section { padding: 6rem 0; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+        .section-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--pink);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .section-label::before {
+            content: '';
+            display: block;
+            width: 1.5rem;
+            height: 1px;
+            background: var(--pink);
+            flex-shrink: 0;
+        }
+        .section-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1;
+            letter-spacing: 0.04em;
+            margin-bottom: 1.5rem;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+        .reveal.visible { opacity: 1; transform: none; }
+
+        /* ========================
+           ABOUT
+        ======================== */
+        #about { background: var(--black); border-top: 1px solid var(--border); }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .about-photo-wrap { position: relative; }
+        .about-photo-wrap img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            object-position: top;
+            filter: contrast(1.08) saturate(0.8);
+            display: block;
+        }
+        .about-photo-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border: 1px solid rgba(232,19,93,0.35);
+            z-index: -1;
+        }
+        .about-text p {
+            font-size: 0.975rem;
+            line-height: 1.9;
+            color: rgba(242,240,235,0.72);
+            margin-bottom: 1.2rem;
+        }
+        .about-text p strong { color: var(--white); }
+        .about-text p em { font-style: italic; color: rgba(242,240,235,0.88); }
+
+        .about-loves {
+            margin-top: 1.5rem;
+            padding: 1.25rem 1.5rem;
+            border-left: 2px solid var(--pink);
+            background: rgba(232,19,93,0.04);
+        }
+        .about-loves-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--pink);
+            margin-bottom: 0.6rem;
+        }
+        .about-loves p {
+            font-size: 0.82rem !important;
+            line-height: 1.75 !important;
+            color: rgba(242,240,235,0.5) !important;
+            margin-bottom: 0 !important;
+        }
+
+        .about-roles {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1.75rem;
+        }
+        .role-tag {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: 1px solid var(--border);
+            padding: 0.35rem 0.8rem;
+            color: var(--gray);
+        }
+        .role-tag.active { border-color: var(--pink); color: var(--pink); }
+
+        .about-links { margin-top: 1.75rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+        .about-link {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gray);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s;
+            padding-bottom: 2px;
+        }
+        .about-link:hover { color: var(--white); border-bottom-color: var(--pink); }
+
+        @media (max-width: 768px) {
+            .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .about-photo-wrap img { aspect-ratio: 1/1; }
+        }
+
+        /* ========================
+           WRITING — HOVER IMMERSIVE
+        ======================== */
+        #writing {
+            background: #0d0d0d;
+            border-top: 1px solid var(--border);
+            position: relative;
+            transition: background-color 0.6s ease;
+        }
+
+        .writing-bg-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            background-size: cover;
+            background-position: center;
+            pointer-events: none;
+        }
+        .writing-bg-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background: rgba(0,0,0,0.78);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        .writing-bg-layer.active { opacity: 1; }
+        .writing-bg-overlay.active { opacity: 1; }
+        #writing .container { position: relative; z-index: 2; }
+
+        .writing-intro {
+            font-size: 0.95rem;
+            line-height: 1.85;
+            color: rgba(242,240,235,0.5);
+            max-width: 580px;
+            margin-bottom: 3.5rem;
+            font-style: italic;
+        }
+
+        .project-stack { display: flex; flex-direction: column; }
+
+        .project-item {
+            border-top: 1px solid var(--border);
+            transition: border-color 0.3s;
+            cursor: pointer;
+        }
+        .project-item:last-child { border-bottom: 1px solid var(--border); }
+
+        .project-header {
+            padding: 2.25rem 0;
+            display: grid;
+            grid-template-columns: 72px 1fr auto;
+            gap: 1.75rem;
+            align-items: start;
+        }
+
+        .project-num {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.75rem;
+            line-height: 1;
+            user-select: none;
+            color: rgba(255,255,255,0.06);
+            transition: color 0.4s;
+        }
+
+        .project-meta {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--pink);
+            margin-bottom: 0.45rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            transition: color 0.4s;
+        }
+        .project-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.1rem;
+            letter-spacing: 0.04em;
+            line-height: 1;
+            margin-bottom: 0.6rem;
+            transition: color 0.3s;
+        }
+        .project-logline-preview {
+            font-size: 0.88rem;
+            line-height: 1.65;
+            color: rgba(242,240,235,0.48);
+            max-width: 560px;
+            transition: color 0.3s;
+        }
+
+        .project-arrow {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.12);
+            transition: all 0.35s;
+            padding-top: 0.35rem;
+            flex-shrink: 0;
+        }
+
+        /* hover states per world */
+        .project-item[data-world="blackpill"]:hover .project-title { color: var(--bp-accent); }
+        .project-item[data-world="blackpill"]:hover .project-meta { color: var(--bp-accent); }
+        .project-item[data-world="blackpill"]:hover .project-num { color: var(--bp-accent); opacity: 0.5; }
+        .project-item[data-world="blackpill"]:hover .project-arrow { color: var(--bp-accent); transform: translateX(6px); }
+        .project-item[data-world="blackpill"]:hover .project-logline-preview { color: rgba(242,240,235,0.75); }
+
+        .project-item[data-world="firstdays"]:hover .project-title { color: var(--fd-accent); }
+        .project-item[data-world="firstdays"]:hover .project-meta { color: var(--fd-accent); }
+        .project-item[data-world="firstdays"]:hover .project-num { color: var(--fd-accent); opacity: 0.5; }
+        .project-item[data-world="firstdays"]:hover .project-arrow { color: var(--fd-accent); transform: translateX(6px); }
+        .project-item[data-world="firstdays"]:hover .project-logline-preview { color: rgba(242,240,235,0.75); }
+
+        .project-item[data-world="malltrip"]:hover .project-title { color: var(--mt-accent); }
+        .project-item[data-world="malltrip"]:hover .project-meta { color: var(--mt-accent); }
+        .project-item[data-world="malltrip"]:hover .project-num { color: var(--mt-accent); opacity: 0.5; }
+        .project-item[data-world="malltrip"]:hover .project-arrow { color: var(--mt-accent); transform: translateX(6px); }
+        .project-item[data-world="malltrip"]:hover .project-logline-preview { color: rgba(242,240,235,0.75); }
+
+        /* expanded detail panel — click to open */
+        .project-expand {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .project-item.open .project-expand { max-height: 600px; }
+
+        .project-expand-inner {
+            padding: 0 0 2.5rem 72px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+        .project-expand-image {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            filter: contrast(1.1) saturate(0.7);
+            display: block;
+        }
+        .project-expand-logline {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: rgba(242,240,235,0.8);
+            margin-bottom: 1.2rem;
+        }
+        .project-expand-logline strong { color: var(--white); }
+        .project-expand-note {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 1.25rem;
+        }
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .project-tag {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: 1px solid var(--border);
+            padding: 0.22rem 0.6rem;
+            color: rgba(255,255,255,0.28);
+        }
+        .project-cta {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--pink);
+            text-decoration: none;
+            border: 1px solid var(--pink);
+            padding: 0.6rem 1.2rem;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+        .project-cta:hover { background: var(--pink); color: var(--white); }
+
+        @media (max-width: 640px) {
+            .project-header { grid-template-columns: 40px 1fr auto; gap: 1rem; }
+            .project-num { font-size: 2rem; }
+            .project-expand-inner { grid-template-columns: 1fr; padding-left: 0; }
+        }
+
+        .writing-more {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+        .writing-more-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 1.25rem;
+        }
+        .credits-list { display: flex; flex-direction: column; }
+        .credit-item {
+            display: flex;
+            gap: 1.5rem;
+            align-items: baseline;
+            padding: 0.65rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            font-size: 0.88rem;
+        }
+        .credit-title { color: rgba(242,240,235,0.65); }
+        .credit-type {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.25);
+        }
+
+        /* ========================
+           THEATER
+        ======================== */
+        #theater { background: var(--black); border-top: 1px solid var(--border); }
+        .theater-featured {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 3.5rem;
+        }
+        .theater-video { position: relative; padding-bottom: 56.25%; overflow: hidden; background: #111; }
+        .theater-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .theater-title { font-family: 'Bebas Neue', cursive; font-size: 2.75rem; letter-spacing: 0.04em; margin-bottom: 0.65rem; }
+        .theater-desc { font-size: 0.93rem; line-height: 1.8; color: rgba(242,240,235,0.58); margin-bottom: 1.4rem; }
+        .theater-quote { border-left: 2px solid var(--pink); padding-left: 1.25rem; margin-bottom: 1.6rem; }
+        .theater-quote p { font-style: italic; font-size: 0.93rem; color: rgba(242,240,235,0.8); line-height: 1.7; margin-bottom: 0.4rem; }
+        .theater-quote cite { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--pink); font-style: normal; }
+        .theater-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .theater-link {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gray);
+            text-decoration: none;
+            border: 1px solid var(--border);
+            padding: 0.55rem 1rem;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+        .theater-link:hover { border-color: var(--pink); color: var(--pink); }
+
+        .theater-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+        .theater-card { background: var(--black); padding: 1.75rem; }
+        .theater-card-label { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--pink); margin-bottom: 1rem; }
+        .theater-card ul { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+        .theater-card li { border-left: 2px solid var(--border); padding-left: 1rem; transition: border-color 0.2s; }
+        .theater-card li:hover { border-left-color: var(--pink); }
+        .theater-card li h5 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .theater-card li p { font-size: 0.78rem; color: rgba(242,240,235,0.4); line-height: 1.5; }
+
+        @media (max-width: 768px) {
+            .theater-featured { grid-template-columns: 1fr; }
+            .theater-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ========================
+           DIRECTING — with Scholastic Affair hover
+        ======================== */
+        #directing {
+            background: #0d0d0d;
+            border-top: 1px solid var(--border);
+            position: relative;
+            transition: background-color 0.6s ease;
+        }
+
+        .directing-bg-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            background-size: cover;
+            background-position: center top;
+            pointer-events: none;
+        }
+        .directing-bg-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background: rgba(0,0,0,0.82);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        .directing-bg-layer.active { opacity: 1; }
+        .directing-bg-overlay.active { opacity: 1; }
+        #directing .container { position: relative; z-index: 2; }
+
+        .films-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1px; background: var(--border); margin-bottom: 2rem; }
+        .film-card { background: #0d0d0d; overflow: hidden; }
+        .film-video { position: relative; padding-bottom: 56.25%; }
+        .film-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .film-info { padding: 1.2rem; }
+        .film-title { font-family: 'Bebas Neue', cursive; font-size: 1.35rem; letter-spacing: 0.04em; margin-bottom: 0.25rem; }
+        .film-desc { font-size: 0.78rem; color: rgba(242,240,235,0.42); line-height: 1.5; margin-bottom: 0.7rem; }
+        .film-meta { display: flex; justify-content: space-between; align-items: center; }
+        .film-year { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; color: var(--pink); }
+        .film-link { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+        .film-link:hover { color: var(--white); }
+
+        .mdla-cta { text-align: center; padding: 2rem 0 0; }
+
+        /* Scholastic Affair hover block */
+        .thesis-block {
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border);
+            cursor: default;
+        }
+        .thesis-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            padding: 2rem 0;
+            transition: all 0.3s;
+        }
+        .thesis-image-wrap {
+            position: relative;
+            overflow: hidden;
+        }
+        .thesis-image-wrap img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            object-position: center top;
+            filter: contrast(1.1) saturate(0.75) sepia(0.15);
+            transition: filter 0.5s ease, transform 0.5s ease;
+            display: block;
+        }
+        .thesis-block:hover .thesis-image-wrap img {
+            filter: contrast(1.05) saturate(0.9) sepia(0);
+            transform: scale(1.02);
+        }
+        .thesis-block:hover ~ * { opacity: 1; }
+        .thesis-meta { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sa-accent); margin-bottom: 0.5rem; display: flex; gap: 1rem; }
+        .thesis-title { font-family: 'Bebas Neue', cursive; font-size: 2rem; letter-spacing: 0.04em; margin-bottom: 0.65rem; transition: color 0.3s; }
+        .thesis-block:hover .thesis-title { color: var(--sa-accent); }
+        .thesis-desc { font-size: 0.93rem; line-height: 1.8; color: rgba(242,240,235,0.55); max-width: 480px; margin-bottom: 1.2rem; }
+
+        @media (max-width: 768px) {
+            .thesis-inner { grid-template-columns: 1fr; }
+        }
+
+        /* ========================
+           RESUME
+        ======================== */
+        #resume { background: var(--black); border-top: 1px solid var(--border); }
+        .resume-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+        .resume-col h3 { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--pink); margin-bottom: 1.5rem; padding-bottom: 0.65rem; border-bottom: 1px solid var(--border); }
+        .resume-entry { padding: 0.9rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+        .resume-entry:last-child { border-bottom: none; }
+        .resume-entry-title { font-weight: 700; font-size: 0.88rem; margin-bottom: 0.2rem; }
+        .resume-entry-sub { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 0.2rem; }
+        .resume-entry-note { font-size: 0.78rem; color: rgba(242,240,235,0.38); line-height: 1.5; font-style: italic; }
+        .resume-note { margin-top: 2.5rem; padding: 1.25rem; border: 1px dashed rgba(255,255,255,0.08); text-align: center; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--gray); }
+        .resume-note a { color: var(--pink); text-decoration: none; }
+
+        @media (max-width: 768px) { .resume-grid { grid-template-columns: 1fr; } }
+
+        /* ========================
+           CONTACT
+        ======================== */
+        #contact { background: #0d0d0d; border-top: 1px solid var(--border); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        .contact-intro { font-size: 0.95rem; line-height: 1.8; color: rgba(242,240,235,0.55); margin-bottom: 2rem; }
+        .contact-details { display: flex; flex-direction: column; gap: 1.2rem; }
+        .contact-detail { display: flex; align-items: flex-start; gap: 1rem; }
+        .contact-detail-icon { color: var(--pink); font-size: 0.82rem; padding-top: 0.15rem; width: 1.2rem; flex-shrink: 0; }
+        .contact-detail-label { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.18rem; }
+        .contact-detail-value { font-size: 0.88rem; color: rgba(242,240,235,0.75); }
+        .contact-detail-value a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+        .contact-detail-value a:hover { border-bottom-color: var(--pink); }
+
+        .form-group { margin-bottom: 1.1rem; }
+        .form-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); display: block; margin-bottom: 0.45rem; }
+        .form-input { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--white); padding: 0.7rem 1rem; font-family: 'Libre Baskerville', serif; font-size: 0.88rem; transition: border-color 0.2s; outline: none; }
+        .form-input:focus { border-color: var(--pink); }
+        .form-input::placeholder { color: rgba(255,255,255,0.18); }
+        select.form-input option { background: #111; }
+        .form-submit { width: 100%; background: var(--pink); color: var(--white); border: none; padding: 0.95rem; font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+        .form-submit:hover { background: var(--pink-dim); }
+        .form-note { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.18); text-align: center; margin-top: 0.65rem; }
+
+        @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+
+        /* ========================
+           FOOTER
+        ======================== */
+        footer { background: var(--black); border-top: 1px solid var(--border); padding: 2.25rem 0; }
+        .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .footer-logo { font-family: 'Bebas Neue', cursive; font-size: 1.2rem; letter-spacing: 0.1em; color: var(--white); text-decoration: none; }
+        .footer-logo span { color: var(--pink); }
+        .footer-copy { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.18); }
+        .footer-icons { display: flex; gap: 1.25rem; }
+        .footer-icons a { color: rgba(255,255,255,0.28); font-size: 0.95rem; transition: color 0.2s; text-decoration: none; }
+        .footer-icons a:hover { color: var(--pink); }
+
         
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+            12% { transform: translateX(3px);  opacity: 0.85; }
+            22% { transform: translateX(-3px); opacity: 1; }
+            42% { transform: translateX(-2px); opacity: 1; }
+            62% { transform: translateX(4px);  opacity: 1; }
+            72% { transform: translateX(-4px); opacity: 0.9; }
+            92% { transform: translateX(-1px); opacity: 0.85; }
         }
+
         
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #ff00c1; }
+
+
+        
+
+
+        
+
+
+        /* ========================
+           BUTTON NEON — hover glow only, idle handled by JS
+        ======================== */
+        .btn-primary,
+        .btn-secondary,
+        .project-cta,
+        .theater-link,
+        .nav-cta,
+        .form-submit {
+            transition: text-shadow 0.15s ease, filter 0.15s ease;
         }
+        .btn-primary:hover,
+        .btn-secondary:hover,
+        .project-cta:hover,
+        .theater-link:hover,
+        .nav-cta:hover,
+        .form-submit:hover {
+            filter: brightness(1.15);
+            text-shadow:
+                0 0 6px rgba(232,19,93,0.95),
+                0 0 18px rgba(232,19,93,0.5),
+                0 0 35px rgba(232,19,93,0.2);
+        }
+
     </style>
 </head>
-<body class="min-h-screen">
-    <!-- Navigation -->
-    <nav class="bg-black text-white p-4 sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="#" class="title-font text-2xl">JDS<span class="text-pink-500">*</span></a>
-            <div class="hidden md:flex space-x-6">
-                <a href="#about" class="hover:text-pink-500 transition">About</a>
-                <a href="#films" class="hover:text-pink-500 transition">Films</a>
-                <a href="#theater" class="hover:text-pink-500 transition">Theater</a>
-                <a href="#contact" class="hover:text-pink-500 transition">Contact</a>
-            </div>
-            <button class="md:hidden" id="menu-toggle">
-                <i class="fas fa-bars text-2xl"></i>
-            </button>
-        </div>
-        <div class="md:hidden hidden bg-black p-4" id="mobile-menu">
-            <div class="flex flex-col space-y-3">
-                <a href="#about" class="hover:text-pink-500 transition">About</a>
-                <a href="#films" class="hover:text-pink-500 transition">Films</a>
-                <a href="#theater" class="hover:text-pink-500 transition">Theater</a>
-                <a href="#contact" class="hover:text-pink-500 transition">Contact</a>
-            </div>
-        </div>
-    </nav>
+<body>
 
-    <!-- Hero Section -->
-    <header class="hero-pattern min-h-screen flex items-center justify-center relative overflow-hidden">
-        <div class="absolute inset-0 bg-black opacity-30"></div>
-        <div class="container mx-auto px-4 z-10 text-center">
-            <h1 class="text-5xl md:text-8xl font-bold mb-6 title-font text-white glitch" data-text="JAN-DAVID SOUTAR">JAN-DAVID SOUTAR</h1>
-            <div class="typewriter text-xl md:text-3xl text-white mb-8">Filmmaker. Writer. Perpetual Weirdo.</div>
-            <div class="flex justify-center space-x-4">
-                <a href="#films" class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-full font-bold transition">Watch My Work</a>
-                <a href="#contact" class="bg-transparent border-2 border-white hover:bg-white hover:text-black text-white px-6 py-3 rounded-full font-bold transition">Contact</a>
-            </div>
-        </div>
-        <div class="absolute bottom-10 left-0 right-0 text-center">
-            <a href="#about" class="text-white animate-bounce inline-block">
-                <i class="fas fa-chevron-down text-2xl"></i>
-            </a>
-        </div>
-    </header>
-
-    <!-- About Section -->
-    <section id="about" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold mb-12 title-font text-center">WHO IS THIS GUY?</h2>
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/3 mb-8 md:mb-0 flex justify-center">
-                    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%2Fid%2FOIP.lJnx0D9GYLKS47VvZi4IuQHaHa%3Fpid%3DApi&f=1&ipt=ede6475680d28148a2599b9278f159e3e6604a6da6bfc421cbf61e2453690637" alt="Jan-David Soutar" class="w-64 h-64 rounded-full object-cover border-4 border-pink-500 shadow-lg">
-                </div>
-                <div class="md:w-2/3 md:pl-12">
-                    <p class="text-lg mb-6">
-                        Jan-David Soutar is a Los Angeles-based filmmaker, writer, and occasional performer who creates work that's equal parts hilarious, disturbing, and strangely beautiful. With credits ranging from music videos to feature films to experimental theater, he refuses to be pigeonholed into any one category.
-                    </p>
-                    <p class="text-lg mb-6">
-                        His work has been described as "what would happen if David Lynch and John Waters had a baby who was raised by Tim & Eric" (this is a real quote from someone probably). Whether he's directing surreal music videos, writing absurdist plays, or crafting unsettling short films, Jan-David brings a unique voice that's impossible to ignore.
-                    </p>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-                        <div class="bg-gray-100 p-4 rounded-lg text-center">
-                            <div class="text-3xl font-bold text-pink-500">15+</div>
-                            <div class="text-sm">Years in the Game</div>
-                        </div>
-                        <div class="bg-gray-100 p-4 rounded-lg text-center">
-                            <div class="text-3xl font-bold text-pink-500">50+</div>
-                            <div class="text-sm">Projects Completed</div>
-                        </div>
-                        <div class="bg-gray-100 p-4 rounded-lg text-center">
-                            <div class="text-3xl font-bold text-pink-500">∞</div>
-                            <div class="text-sm">Weird Ideas</div>
-                        </div>
-                        <div class="bg-gray-100 p-4 rounded-lg text-center">
-                            <div class="text-3xl font-bold text-pink-500">1</div>
-                            <div class="text-sm">Beautiful Mind</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Films Section -->
-    <section id="films" class="py-20 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold mb-12 title-font text-center">FILM & VIDEO WORK</h2>
-            <p class="text-center max-w-2xl mx-auto mb-12 text-lg">
-                From music videos that'll melt your brain to short films that'll haunt your dreams, here's a selection of Jan-David's visual work. Viewer discretion is advised (but encouraged).
-            </p>
-            
-            <!-- 
-            UPCOMING PREMIERES - Hidden for now
-            <div class="mb-16">
-                <h3 class="text-2xl font-bold mb-8 title-font text-center relative">
-                    <span class="bg-pink-500 text-white px-4 py-2 rounded-full text-sm uppercase tracking-wide">Coming Soon</span>
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    Premiere cards here...
-                </div>
-            </div>
-            -->
-
-            <h3 class="text-3xl font-bold mb-8 title-font text-center">Released Films</h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project 1 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <div class="relative pb-[56.25%] overflow-hidden">
-                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/BB5F9LVlyz0?si=8-Z1M4CSndivOViO" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">"Oh Constantine" Trailer</h3>
-                        <p class="text-gray-600 mb-4">Pitch Video for the absurdist play that took Hollywood Fringe by storm.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-sm text-pink-500">2025</span>
-                            <a href="https://youtu.be/BB5F9LVlyz0?si=8-Z1M4CSndivOViO$0" target="_blank" class="text-sm font-bold hover:text-pink-500 transition">View on Youtube →</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 2 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <div class="relative pb-[56.25%] overflow-hidden">
-                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/aHviEO1A96M" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">"Born A Snake"</h3>
-                        <p class="text-gray-600 mb-4">A poetic short film about a man making his way thru the challenges of the world.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-sm text-pink-500">2018</span>
-                            <a href="https://www.youtube.com/watch?v=aHviEO1A96M" target="_blank" class="text-sm font-bold hover:text-pink-500 transition">View on YouTube →</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 3 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <div class="relative pb-[56.25%] overflow-hidden">
-                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/yKWftv-gqII" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">"Banshee"</h3>
-                        <p class="text-gray-600 mb-4">A haunting exploration of myth and modernity.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-sm text-pink-500">2019</span>
-                            <a href="https://youtu.be/yKWftv-gqII" target="_blank" class="text-sm font-bold hover:text-pink-500 transition">View on YouTube →</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 4 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <div class="relative pb-[56.25%] overflow-hidden">
-                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/c3Esi5q9lf4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">"The Bechdel Test"</h3>
-                        <p class="text-gray-600 mb-4">An examination of representation and female agency in cinema.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-sm text-pink-500">2020</span>
-                            <a href="https://youtu.be/c3Esi5q9lf4" target="_blank" class="text-sm font-bold hover:text-pink-500 transition">View on YouTube →</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 5 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <div class="relative pb-[56.25%] overflow-hidden">
-                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/TFUV0vHywks" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">"La Nina Que Sonrio"</h3>
-                        <p class="text-gray-600 mb-4">A poignant story of resilience and hope.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-sm text-pink-500">2021</span>
-                            <a href="https://youtu.be/TFUV0vHywks" target="_blank" class="text-sm font-bold hover:text-pink-500 transition">View on YouTube →</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Director's Commentaries -->
-            <div class="mt-16 mb-12">
-                <h3 class="text-2xl font-bold mb-8 title-font text-center">Director's Commentaries</h3>
-                <p class="text-center max-w-2xl mx-auto mb-8 text-gray-600">
-                    Deep dives into the making of these films. Behind-the-scenes insights, production stories, and the occasional embarrassing confession.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    <!-- Commentary 1 -->
-                    <div class="project-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                        <div class="relative pb-[56.25%] overflow-hidden">
-                            <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/TJacWZcND6U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">Born A Snake <span class="text-sm font-normal text-gray-500">(Commentary)</span></h3>
-                            <p class="text-gray-600 mb-4">Director's commentary track for Born A Snake. Insights into the poetic imagery and production challenges.</p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-pink-500">Bonus Content</span>
-                                <a href="https://youtu.be/TJacWZcND6U" target="_blank" class="text-sm font-bold hover:text-pink-500 transition">Watch Commentary →</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Commentary 2 -->
-                    <div class="project-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                        <div class="relative pb-[56.25%] overflow-hidden">
-                            <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/h94OryxSjkA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">Banshee <span class="text-sm font-normal text-gray-500">(Commentary)</span></h3>
-                            <p class="text-gray-600 mb-4">Director's commentary track for Banshee. Exploring the mythological themes and modern interpretations.</p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-pink-500">Bonus Content</span>
-                                <a href="https://youtu.be/h94OryxSjkA" target="_blank" class="text-sm font-bold hover:text-pink-500 transition">Watch Commentary →</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <a href="https://www.youtube.com/@mdlafilms" target="_blank" class="inline-flex items-center px-6 py-3 border-2 border-black rounded-full font-bold hover:bg-black hover:text-white transition">
-                    <i class="fab fa-youtube mr-2"></i> See More on YouTube
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Theater Section -->
-    <section id="theater" class="py-20 bg-black text-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold mb-12 title-font text-center">THEATER & PERFORMANCE</h2>
-            <p class="text-center max-w-2xl mx-auto mb-12 text-lg opacity-80">
-                Because sometimes actors need to suffer live in front of an audience. Jan-David's theatrical work blends absurdity with deep emotional resonance (or so he claims).
-            </p>
-            
-            <div class="flex flex-col md:flex-row gap-8 items-center">
-                <div class="md:w-1/2">
-    <div class="relative pb-[56.25%] overflow-hidden bg-gray-900 rounded-lg">
-        <iframe 
-            src="https://www.youtube.com/embed/oIApfyIelJQ" 
-            class="absolute top-0 left-0 w-full h-full"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-        </iframe>
+<!-- NAV -->
+<nav id="navbar">
+    <a href="#" class="nav-logo">JDS<span>*</span></a>
+    <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#writing">Writing</a>
+        <a href="#theater">Theater</a>
+        <a href="#directing">Films</a>
+        <a href="#resume">Credits</a>
+        <a href="#contact" class="nav-cta">Contact</a>
     </div>
+    <button class="mobile-toggle" onclick="toggleMobile()" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+    </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="closeMobile()">About</a>
+    <a href="#writing" onclick="closeMobile()">Writing</a>
+    <a href="#theater" onclick="closeMobile()">Theater</a>
+    <a href="#directing" onclick="closeMobile()">Films</a>
+    <a href="#resume" onclick="closeMobile()">Credits</a>
+    <a href="#contact" onclick="closeMobile()">Contact</a>
 </div>
-                </div>
-                <div class="md:w-1/2">
-                    <h3 class="text-3xl font-bold mb-4 title-font">OH CONSTANTINE</h3>
-                    <p class="text-lg mb-6">
-                        A darkly comedic play about a man who may or may not be the reincarnation of Roman Emperor Constantine the Great. Premiered at the Hollywood Fringe Festival to bewildered audiences and confused critics.
-                    </p>
-                    <div class="mb-6">
-                        <div class="flex items-center mb-2">
-                            <i class="fas fa-quote-left text-pink-500 mr-2"></i>
-                            <span class="font-bold">Critical Praise:</span>
-                        </div>
-                        <p class="italic opacity-80">
-                            "Equal parts hilarious and disturbing... like if Beckett wrote a sitcom set in hell." - LA Weekly
-                        </p>
-                    </div>
-                    <a href="https://www.hollywoodfringe.org/projects/11553" target="_blank" class="inline-flex items-center px-6 py-3 border-2 border-pink-500 rounded-full font-bold hover:bg-pink-500 hover:text-white transition">
-                        Hollywood Fringe Page <i class="fas fa-external-link-alt ml-2"></i>
-                    </a>
-                </div>
+
+<!-- HERO -->
+<header class="hero">
+    <div class="hero-text reveal">
+        <div class="hero-eyebrow">Los Angeles, CA</div>
+        <h1 class="hero-name">
+            <span class="glitch" data-text="JAN-DAVID SOUTAR">JAN-DAVID SOUTAR</span>
+        </h1>
+        <p class="hero-tagline">
+            Writer. Director. Perpetual Weirdo.
+        </p>
+        <div class="hero-actions">
+            <a href="#writing" class="btn-primary">Read the Work</a>
+            <a href="#contact" class="btn-secondary">Get in Touch</a>
+        </div>
+    </div>
+    <div class="hero-image">
+        <img src="https://raw.githubusercontent.com/phreakwenci/jandavidsoutar/main/images/IMG_0919.jpeg" alt="Jan-David Soutar">
+    </div>
+</header>
+
+<!-- ABOUT -->
+<section id="about">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-photo-wrap reveal">
+                <img src="https://raw.githubusercontent.com/phreakwenci/jandavidsoutar/main/images/IMG_0919.jpeg" alt="Jan-David Soutar">
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-                <div class="bg-gray-900 p-6 rounded-lg">
-                    <h4 class="text-xl font-bold mb-3 title-font">OTHER THEATRICAL WORK</h4>
-                    <ul class="space-y-4">
-                        <li class="border-l-4 border-pink-500 pl-4">
-                            <h5 class="font-bold">"BlackPill" (Coming in 2026)</h5>
-                            <p class="text-sm opacity-80">Director - A surreal comedy about love in the digital age</p>
-                        </li>
-                        <li class="border-l-4 border-pink-500 pl-4">
-                            <h5 class="font-bold">"High Level Affection" (2025)</h5>
-                            <p class="text-sm opacity-80">The end of the world is coming and the World President is really excited about it</p>
-                        </li>
-                        <li class="border-l-4 border-pink-500 pl-4">
-                            <h5 class="font-bold">"Marie Antionette" By David Adjmi (2023)</h5>
-                            <p class="text-sm opacity-80">Writer/Director - Staged scene from the hit piece</p>
-                        </li>
-                    </ul>
+            <div class="about-text reveal">
+                <div class="section-label">Who Is This Guy</div>
+                <h2 class="section-title">JAN-DAVID<br>SOUTAR</h2>
+                <p>
+                    Jan-David Soutar is a Los Angeles-based writer, filmmaker, and theater director with an obsession that started early and never quit: <strong>history doesn't stay where you put it.</strong> It bleeds. It haunts. It shows up in a parking lot in 1952, in a mall in 2007, in a gated community when the power goes out. He writes about that.
+                </p>
+                <p>
+                    He is an everyday philosopher, a passionate storyteller and an obsessive history lover who will take on with Euripidean might the stories and people that time has not yet come to understand. His work spans features, television pilots, and theater. It is surreal, absurd, existential and deeply strange in ways that are too informed to be accidental.
+                </p>
+                <p>
+                    He founded <strong>Society of the Cellar</strong>, a Los Angeles theater company dedicated to the kind of work that makes audiences uncomfortable in the best possible way. His play <em>Oh Constantine!</em>, a historical musical comedy about the Council of Nicaea, earned a Zephyr Zest Award nomination at the Hollywood Fringe Festival. He is also a produced short filmmaker and a working actor.
+                </p>
+                <p>He is from Baltimore. He loves the Ravens and the Orioles. He cannot stop writing.</p>
+
+                <div class="about-loves">
+                    <div class="about-loves-label">Also Loves</div>
+                    <p>Frank Zappa, John Waters, The Wire, the first 3 seasons of Banshee, Star Trek TNG, Seijun Suzuki, Choose Your Own Adventure books, Byung-Chul Han, Slavoj Zizek, bell hooks, Old Bay, Royal Farms potato wedges, Fatboy Slim, Esquivel, Simone de Beauvoir, Simone Weil, Agnes Varda, MGMT, The Goonies, Bulfinch's Mythology, Will Durant, Stephen King (whom he shares a birthday with), Mary and Percy Shelley, Turner Classic Movies, Caravaggio, Voltaire, Cicero, Eisenstein, black and white photography, Lycanthropy, Kafka, the screenplays of Jack Nicholson, Hank Green, Albert Camus, Richard Rorty, James Baldwin, Eastman and Laird, Jim Henson's darker work, Brecht, Mitch Hedberg, Mark Twain, Ibram X. Kendi, Mel Brooks, dance-walking his dog to Baltimore house music, and Tupac Shakur.</p>
                 </div>
-                <div class="bg-gray-900 p-6 rounded-lg">
-                    <h4 class="text-xl font-bold mb-3 title-font">UPCOMING PROJECTS</h4>
-                    <ul class="space-y-4">
-                        <li class="border-l-4 border-pink-500 pl-4">
-                            <h5 class="font-bold">"United States of Christ"</h5>
-                            <p class="text-sm opacity-80">A Christian nationalist family is very excited about the upcoming theocratic rule after a landslide election, until they're not.</p>
-                        </li>
-                        <li class="border-l-4 border-pink-500 pl-4">
-                            <h5 class="font-bold">"Micromegas"</h5>
-                            <p class="text-sm opacity-80">Interactive performance installation based on the work of Voltaire</p>
-                        </li>
-                    </ul>
+
+                <div class="about-roles">
+                    <span class="role-tag active">Writer</span>
+                    <span class="role-tag active">Director</span>
+                    <span class="role-tag active">Theater Maker</span>
+                    <span class="role-tag">Actor</span>
+                    <span class="role-tag">Producer</span>
                 </div>
-            </div>
-            
-            <!-- Instagram Feed -->
-            <div class="mt-12 text-center">
-                <h4 class="text-2xl font-bold mb-6 title-font">SOCIETY OF THE CELLAR</h4>
-                <p class="mb-6 opacity-80">Behind-the-scenes chaos and cellar dwellers on Instagram</p>
-                <div class="flex justify-center">
-                    <blockquote class="instagram-media" data-instagram-permalink="https://www.instagram.com/societyofthecellar/" data-instagram-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px auto; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
-                        <div style="padding:16px;"> 
-                            <a href="https://www.instagram.com/societyofthecellar/" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> 
-                                <div style=" display: flex; flex-direction: row; align-items: center;"> 
-                                    <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> 
-                                    <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> 
-                                        <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> 
-                                        <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div> 
-                                    </div> 
-                                </div>
-                                <div style="padding: 19% 0;"></div> 
-                                <div style="display:block; height:50px; margin:0 auto 12px; width:50px;">
-                                    <svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
-                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <g transform="translate(-511.000000, -20.000000)" fill="#000000">
-                                                <g>
-                                                    <path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.394 517.654,32.338 C518.197,30.94 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.197 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.197 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.94 564.346,32.338 C564.756,33.394 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.166,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.377,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.377,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.166,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path>
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </svg>
-                                </div>
-                                <div style="padding-top: 8px;"> 
-                                    <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this profile on Instagram</div>
-                                </div>
-                                <div style="padding: 12.5% 0;"></div> 
-                                <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;">
-                                    <div> 
-                                        <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> 
-                                        <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-left: 14px; margin-right: 14px;"></div> 
-                                        <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div>
-                                    </div>
-                                    <div style="margin-left: 8px;"> 
-                                        <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> 
-                                        <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #F4F4F4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div>
-                                    </div>
-                                </div>
-                                <div style="margin-left: auto; margin-right: auto; width: 50px;"> 
-                                    <div style="border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> 
-                                    <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> 
-                                    <div style=" width: 0; height: 0; margin-top: -8px; transform: rotate(45deg); border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 8px solid #F4F4F4;"></div>
-                                </div>
-                            </a>
-                            <p style=" margin:8px 0 0 0; padding:0 4px;"> 
-                                <a href="https://www.instagram.com/societyofthecellar/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_blank">@societyofthecellar</a>
-                            </p>
-                        </div>
-                    </blockquote>
-                    <script async src="//www.instagram.com/embed.js"></script>
+                <div class="about-links">
+                    <a href="https://www.imdb.com/name/nm2387259/" target="_blank" class="about-link">IMDb</a>
+                    <a href="https://www.mdlafilms.com" target="_blank" class="about-link">MDLA Films</a>
+                    <a href="https://www.ohconstantineplay.com" target="_blank" class="about-link">Oh Constantine</a>
+                    <a href="https://www.scholasticaffairfilm.com" target="_blank" class="about-link">Scholastic Affair</a>
+                    <a href="https://www.societyofthecellar.com" target="_blank" class="about-link">Society of the Cellar</a>
                 </div>
-                <a href="https://www.instagram.com/societyofthecellar/" target="_blank" class="mt-6 inline-flex items-center px-6 py-3 border-2 border-pink-500 rounded-full font-bold hover:bg-pink-500 hover:text-white transition">
-                    <i class="fab fa-instagram mr-2"></i> Follow on Instagram
-                </a>
             </div>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-   <section id="contact" class="py-20 bg-white">
-    <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold mb-12 title-font text-center text-black uppercase tracking-tighter">WANT TO MAKE SOMETHING WEIRD?</h2>
-        <p class="text-center max-w-2xl mx-auto mb-12 text-lg text-gray-700">
-            Whether you need a director for your bonkers music video, a writer for your avant-garde theater piece, or just someone to stare deeply into your soul, Jan-David is available for hire.
-        </p>
-
-        <form action="https://formspree.io/f/mnjbzlzo" method="POST" class="max-w-xl mx-auto space-y-6">
-            <div>
-                <label for="name" class="block text-sm font-bold mb-2 text-black uppercase">Your Name</label>
-                <input type="text" name="name" id="name" required class="w-full px-4 py-3 border-2 border-black rounded-lg bg-white text-black focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all">
-            </div>
-
-            <div>
-                <label for="email" class="block text-sm font-bold mb-2 text-black uppercase">Your Email</label>
-                <input type="email" name="email" id="email" required class="w-full px-4 py-3 border-2 border-black rounded-lg bg-white text-black focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all">
-            </div>
-
-            <div>
-                <label for="project" class="block text-sm font-bold mb-2 text-black uppercase">Project Type</label>
-                <select id="project" name="project-type" class="w-full px-4 py-3 border-2 border-black rounded-lg bg-white text-black focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all">
-                    <option value="film">Film/Video Project</option>
-                    <option value="theater">Theater Project</option>
-                    <option value="writing">Writing Collaboration</option>
-                    <option value="other">Something Else Entirely</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="message" class="block text-sm font-bold mb-2 text-black uppercase">Your Wild Idea</label>
-                <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 border-2 border-black rounded-lg bg-white text-black focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all"></textarea>
-            </div>
-
-            <button type="submit" class="w-full bg-black text-white px-6 py-4 rounded-full font-bold hover:bg-pink-500 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl uppercase tracking-widest">
-                SEND INTO THE VOID
-            </button>
-        </form>
     </div>
 </section>
-                <div class="md:w-1/2">
-                    <div class="bg-gray-100 p-8 rounded-lg h-full">
-                        <h3 class="text-2xl font-bold mb-6 title-font">OTHER WAYS TO CONNECT</h3>
-                        <div class="space-y-6">
-                            <div class="flex items-start">
-                                <div class="text-pink-500 text-2xl mr-4 mt-1">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold">Email</h4>
-                                    <a href="mailto:hello@jandavidsoutar.com" class="hover:text-pink-500 transition">contact@jandavidsoutar.com</a>
-                                </div>
+
+<!-- WRITING -->
+<section id="writing">
+    <div class="writing-bg-layer" id="bg-blackpill"
+         style="background-image: url('https://www.swansea.ac.uk/press-office/news-events/news/2023/11/Incel_Banner.jpg');"></div>
+    <div class="writing-bg-layer" id="bg-firstdays"
+         style="background-image: url('https://dailygalaxy.com/wp-content/uploads/2025/10/Huge-Solar-Eruption-Spotted-On-The-Suns-Far-Side-scaled.png.webp');"></div>
+    <div class="writing-bg-layer" id="bg-malltrip"
+         style="background-image: url('https://as1.ftcdn.net/v2/jpg/09/21/54/88/1000_F_921548872_okoJtsZMa6gsZln0ecQYUcLGlPNR20PI.jpg');"></div>
+    <div class="writing-bg-overlay" id="writing-overlay"></div>
+
+    <div class="container">
+        <div class="section-label reveal">The Writing</div>
+        <h2 class="section-title reveal">FEATURES AND<br>TELEVISION</h2>
+        <p class="writing-intro reveal">
+            Original screenplays and pilots. Strange premises, specific worlds, genuine stakes. Written by Jan-David Soutar. Available upon request.
+        </p>
+
+        <div class="project-stack">
+
+            <div class="project-item reveal" data-world="blackpill" id="item-blackpill"
+                 onmouseenter="activateWorld('blackpill')"
+                 onmouseleave="deactivateWorld()"
+                 onclick="toggleProject('blackpill')">
+                <div class="project-header">
+                    <div class="project-num">01</div>
+                    <div class="project-main">
+                        <div class="project-meta"><span>Feature Film</span><span>Thriller / Satire</span></div>
+                        <h3 class="project-title">BLACKPILL</h3>
+                        <p class="project-logline-preview">A feminist philosophy grad student has a one-night stand with a self-described incel. When she ghosts him, he kidnaps her to find out why.</p>
+                    </div>
+                    <div class="project-arrow">&#8594;</div>
+                </div>
+                <div class="project-expand" id="expand-blackpill">
+                    <div class="project-expand-inner">
+                        <img class="project-expand-image"
+                             src="https://www.swansea.ac.uk/press-office/news-events/news/2023/11/Incel_Banner.jpg"
+                             alt="Blackpill">
+                        <div>
+                            <p class="project-expand-logline">A feminist philosophy grad student has a one-night stand with a self-described incel. When she ghosts him, he kidnaps her to find out why. <strong>A dark satire about desire, ideology, and the wars we fight over who gets to define both.</strong></p>
+                            <div class="project-expand-note">Written by Jan-David Soutar / Feature Screenplay / Script available upon request</div>
+                            <div class="project-tags">
+                                <span class="project-tag">Feature</span>
+                                <span class="project-tag">Thriller</span>
+                                <span class="project-tag">Satire</span>
+                                <span class="project-tag">In Development</span>
                             </div>
-                            <div class="flex items-start">
-                                <div class="text-pink-500 text-2xl mr-4 mt-1">
-                                    <i class="fab fa-imdb"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold">IMDb</h4>
-                                    <a href="https://www.imdb.com/name/nm2387259/" target="_blank" class="hover:text-pink-500 transition">Jan-David Soutar on IMDb</a>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="text-pink-500 text-2xl mr-4 mt-1">
-                                    <i class="fab fa-youtube"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold">YouTube</h4>
-                                    <a href="https://www.youtube.com/@mdlafilms" target="_blank" class="hover:text-pink-500 transition">MDLA Films on YouTube</a>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="text-pink-500 text-2xl mr-4 mt-1">
-                                    <i class="fas fa-theater-masks"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold">Hollywood Fringe</h4>
-                                    <a href="https://www.hollywoodfringe.org/projects/11553" target="_blank" class="hover:text-pink-500 transition">Oh Constantine Project</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-8 pt-6 border-t border-gray-300">
-                            <h4 class="font-bold mb-4">AVAILABILITY</h4>
-                            <p class="mb-4">Currently accepting:</p>
-                            <ul class="list-disc pl-5 space-y-2">
-                                <li>Directing gigs</li>
-                                <li>Writing commissions</li>
-                                <li>Consulting on weird projects</li>
-                                <li>Existential conversations</li>
-                            </ul>
+                            <a href="mailto:contact@jandavidsoutar.com?subject=Script Request: Blackpill" class="project-cta">Request the Script</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="bg-black text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <a href="#" class="title-font text-2xl">JAN-DAVID SOUTAR<span class="text-pink-500">*</span></a>
-                    <p class="mt-2 opacity-80">Making strange things since before it was cool.</p>
+            <div class="project-item reveal" data-world="firstdays" id="item-firstdays"
+                 onmouseenter="activateWorld('firstdays')"
+                 onmouseleave="deactivateWorld()"
+                 onclick="toggleProject('firstdays')">
+                <div class="project-header">
+                    <div class="project-num">02</div>
+                    <div class="project-main">
+                        <div class="project-meta"><span>Television Pilot</span><span>Epic / Political Drama</span></div>
+                        <h3 class="project-title">FIRST DAYS OF THE APOCALYPSE</h3>
+                        <p class="project-logline-preview">When a solar flare wipes the planet clean of power, a Cheyenne prophet leads tribes and the dispossessed to reclaim sacred land.</p>
+                    </div>
+                    <div class="project-arrow">&#8594;</div>
                 </div>
-                <div class="flex space-x-6">
-                    <a href="https://www.youtube.com/@mdlafilms" target="_blank" class="text-2xl hover:text-pink-500 transition">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                    <a href="https://www.imdb.com/name/nm2387259/" target="_blank" class="text-2xl hover:text-pink-500 transition">
-                        <i class="fab fa-imdb"></i>
-                    </a>
-                    <a href="mailto:hello@jandavidsoutar.com" class="text-2xl hover:text-pink-500 transition">
-                        <i class="fas fa-envelope"></i>
+                <div class="project-expand" id="expand-firstdays">
+                    <div class="project-expand-inner">
+                        <img class="project-expand-image"
+                             src="https://dailygalaxy.com/wp-content/uploads/2025/10/Huge-Solar-Eruption-Spotted-On-The-Suns-Far-Side-scaled.png.webp"
+                             alt="First Days of the Apocalypse">
+                        <div>
+                            <p class="project-expand-logline">When a solar flare wipes the planet clean of power, a mysterious Cheyenne prophet leads a coalition of tribes and the newly dispossessed to reclaim sacred land, starting with the wealthy gated community of Vail Gardens, Colorado. <strong>The apocalypse is not the story. The redistribution is.</strong></p>
+                            <div class="project-expand-note">Written by Jan-David Soutar / Television Pilot / Script available upon request</div>
+                            <div class="project-tags">
+                                <span class="project-tag">TV Pilot</span>
+                                <span class="project-tag">Epic Drama</span>
+                                <span class="project-tag">Political</span>
+                                <span class="project-tag">In Development</span>
+                            </div>
+                            <a href="mailto:contact@jandavidsoutar.com?subject=Script Request: First Days of the Apocalypse" class="project-cta">Request the Script</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-item reveal" data-world="malltrip" id="item-malltrip"
+                 onmouseenter="activateWorld('malltrip')"
+                 onmouseleave="deactivateWorld()"
+                 onclick="toggleProject('malltrip')">
+                <div class="project-header">
+                    <div class="project-num">03</div>
+                    <div class="project-main">
+                        <div class="project-meta"><span>Feature Film</span><span>Coming of Age / Comedy</span></div>
+                        <h3 class="project-title">MALL TRIP</h3>
+                        <p class="project-logline-preview">The day before high school graduation, 2007. Two outcast best friends take a dare from the cool kids to drop acid at the local mall, or risk being losers forever.</p>
+                    </div>
+                    <div class="project-arrow">&#8594;</div>
+                </div>
+                <div class="project-expand" id="expand-malltrip">
+                    <div class="project-expand-inner">
+                        <img class="project-expand-image"
+                             src="https://i0.wp.com/theretronetwork.com/wp-content/uploads/2023/06/mall-cover-1.jpg?w=738&ssl=1"
+                             alt="Mall Trip">
+                        <div>
+                            <p class="project-expand-logline">The day before high school graduation, 2007. Two outcast best friends take a dare from the cool kids to drop acid at the local mall, or risk being losers forever. <strong>A day that expands into everything: friendship, identity, the last afternoon before the world rearranges itself for good.</strong></p>
+                            <div class="project-expand-note">Written by Jan-David Soutar / Feature Screenplay / Script available upon request</div>
+                            <div class="project-tags">
+                                <span class="project-tag">Feature</span>
+                                <span class="project-tag">Coming of Age</span>
+                                <span class="project-tag">Comedy</span>
+                                <span class="project-tag">In Development</span>
+                            </div>
+                            <a href="mailto:contact@jandavidsoutar.com?subject=Script Request: Mall Trip" class="project-cta">Request the Script</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="writing-more reveal">
+            <div class="writing-more-label">Also In Development</div>
+            <div class="credits-list">
+                <div class="credit-item"><span class="credit-title">Sandbox</span><span class="credit-type">Feature / Sci-Fi Thriller</span></div>
+                <div class="credit-item"><span class="credit-title">Killer Miller</span><span class="credit-type">TV Pilot / Western</span></div>
+                <div class="credit-item"><span class="credit-title">Big Country</span><span class="credit-type">TV Pilot / Multi-Cam Comedy</span></div>
+                <div class="credit-item"><span class="credit-title">Harper's Ferry</span><span class="credit-type">Feature / Horror</span></div>
+                <div class="credit-item"><span class="credit-title">United States of Christ</span><span class="credit-type">Theater / New Play</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- THEATER -->
+<section id="theater">
+    <div class="container">
+        <div class="section-label reveal">Theater and Performance</div>
+        <h2 class="section-title reveal">SOCIETY OF<br>THE CELLAR</h2>
+
+        <div class="theater-featured reveal">
+            <div class="theater-video">
+                <iframe src="https://www.youtube.com/embed/oIApfyIelJQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div>
+                <div class="project-meta" style="margin-bottom:0.5rem;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--pink);display:flex;gap:1rem;">
+                    <span>World Premiere</span><span>Hollywood Fringe 2025</span>
+                </div>
+                <h3 class="theater-title">OH CONSTANTINE!</h3>
+                <p class="theater-desc">A historical musical comedy about the Council of Nicaea, the 325 AD gathering where the Roman Emperor Constantine attempted to settle a theological argument that nearly tore Christianity apart. Funny. Strange. Surprisingly moving. Exactly the kind of show nobody expected to exist.</p>
+                <div class="theater-quote">
+                    <p>"Equal parts hilarious and disturbing... like if Beckett wrote a sitcom set in hell."</p>
+                    <cite>LA Weekly</cite>
+                </div>
+                <div class="theater-links">
+                    <a href="https://www.ohconstantineplay.com" target="_blank" class="theater-link"><i class="fas fa-external-link-alt"></i> Official Site</a>
+                    <a href="https://www.hollywoodfringe.org/projects/11553" target="_blank" class="theater-link"><i class="fas fa-theater-masks"></i> Fringe Page</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="theater-grid reveal">
+            <div class="theater-card">
+                <div class="theater-card-label">Recent Work</div>
+                <ul>
+                    <li><h5>High Level Affection</h5><p>Writer and Director. The end of the world is coming and the World President is thrilled about it. (2025)</p></li>
+                    <li><h5>Marie Antoinette by David Adjmi</h5><p>Director. Staged scene from the acclaimed play. (2023)</p></li>
+                </ul>
+            </div>
+            <div class="theater-card">
+                <div class="theater-card-label">In Development</div>
+                <ul>
+                    <li><h5>BlackPill</h5><p>Writer and Director. Stage adaptation. A surreal confrontation between ideology and desire. (2026)</p></li>
+                    <li><h5>Micromegas</h5><p>Writer and Director. Interactive performance installation based on Voltaire.</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DIRECTING -->
+<section id="directing">
+    <div class="directing-bg-layer" id="bg-scholastic"
+         style="background-image: url('https://raw.githubusercontent.com/phreakwenci/ScholasticAffairOLD/MAIN_OLD/images/Touched_up_Hero_Image-1-Large_Version.png');"></div>
+    <div class="directing-bg-overlay" id="directing-overlay"></div>
+
+    <div class="container">
+        <div class="section-label reveal">Film Direction</div>
+        <h2 class="section-title reveal">SHORT FILMS<br>AND VIDEO WORK</h2>
+        <p class="writing-intro reveal">
+            Selected directed work. For the full catalog including director's commentaries and production deep-dives, visit <a href="https://www.mdlafilms.com" target="_blank" style="color:var(--pink);text-decoration:none;">MDLA Films</a>.
+        </p>
+
+        <div class="films-grid reveal">
+            <div class="film-card">
+                <div class="film-video">
+                    <iframe src="https://www.youtube.com/embed/aHviEO1A96M" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="film-info">
+                    <h3 class="film-title">Born A Snake</h3>
+                    <p class="film-desc">Written and Directed by Jan-David Soutar. A spoken-word short following a young Black man through his day.</p>
+                    <div class="film-meta"><span class="film-year">2018</span><a href="https://www.youtube.com/watch?v=aHviEO1A96M" target="_blank" class="film-link">Watch</a></div>
+                </div>
+            </div>
+            <div class="film-card">
+                <div class="film-video">
+                    <iframe src="https://www.youtube.com/embed/yKWftv-gqII" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="film-info">
+                    <h3 class="film-title">Banshee</h3>
+                    <p class="film-desc">Written and Directed by Jan-David Soutar. A fan film born from obsession and the show that got him on set as an actor.</p>
+                    <div class="film-meta"><span class="film-year">2019</span><a href="https://youtu.be/yKWftv-gqII" target="_blank" class="film-link">Watch</a></div>
+                </div>
+            </div>
+            <div class="film-card">
+                <div class="film-video">
+                    <iframe src="https://www.youtube.com/embed/TFUV0vHywks" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="film-info">
+                    <h3 class="film-title">La Nina Que Sonrio</h3>
+                    <p class="film-desc">Directed by Jan-David Soutar. Two girls make the crossing. A story of resilience told with restraint.</p>
+                    <div class="film-meta"><span class="film-year">2021</span><a href="https://youtu.be/TFUV0vHywks" target="_blank" class="film-link">Watch</a></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mdla-cta reveal">
+            <a href="https://www.mdlafilms.com" target="_blank" class="btn-secondary" style="display:inline-flex;align-items:center;gap:0.5rem;">
+                <i class="fab fa-youtube"></i> Full Catalog at MDLA Films
+            </a>
+        </div>
+
+        <!-- SCHOLASTIC AFFAIR — hover to activate bg -->
+        <div class="thesis-block reveal"
+             onmouseenter="activateScholastic()"
+             onmouseleave="deactivateScholastic()">
+            <div class="thesis-inner">
+                <div class="thesis-image-wrap">
+                    <img src="https://raw.githubusercontent.com/phreakwenci/ScholasticAffairOLD/MAIN_OLD/images/Touched_up_Hero_Image-1-Large_Version.png"
+                         alt="Scholastic Affair">
+                </div>
+                <div>
+                    <div class="thesis-meta"><span>Thesis Film</span><span>In Post-Production</span></div>
+                    <h3 class="thesis-title">SCHOLASTIC AFFAIR</h3>
+                    <p class="thesis-desc">On a stormy night in a 1950s university parking lot, a misguided student tries to expose her professor's affair and it goes sideways when she calls his bluff and his wife picks up. A 9-minute dramatic thriller. Directed by Jan-David Soutar.</p>
+                    <a href="https://www.scholasticaffairfilm.com" target="_blank" class="theater-link">
+                        <i class="fas fa-external-link-alt"></i> Visit the Film Site
                     </a>
                 </div>
             </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center opacity-70 text-sm">
-                <p>© 2025 Jan-David Soutar. All rights reserved. All weirdness preserved.</p>
-                <p class="mt-2">This website may cause dizziness, euphoria, or existential dread.</p>
+        </div>
+    </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume">
+    <div class="container">
+        <div class="section-label reveal">Credits</div>
+        <h2 class="section-title reveal">SELECTED<br>CREDITS</h2>
+        <div class="resume-grid reveal">
+            <div class="resume-col">
+                <h3>Writing</h3>
+                <div class="resume-entry"><div class="resume-entry-title">Blackpill</div><div class="resume-entry-sub">Feature Screenplay / Writer</div><div class="resume-entry-note">Dark satire and thriller. In development.</div></div>
+                <div class="resume-entry"><div class="resume-entry-title">First Days of the Apocalypse</div><div class="resume-entry-sub">TV Pilot / Writer</div><div class="resume-entry-note">Epic political drama. In development.</div></div>
+                <div class="resume-entry"><div class="resume-entry-title">Mall Trip</div><div class="resume-entry-sub">Feature Screenplay / Writer</div><div class="resume-entry-note">Coming of age. In development.</div></div>
+                <div class="resume-entry"><div class="resume-entry-title">Killer Miller</div><div class="resume-entry-sub">TV Pilot / Writer</div><div class="resume-entry-note">Western. In development.</div></div>
+                <div class="resume-entry"><div class="resume-entry-title">Big Country</div><div class="resume-entry-sub">TV Pilot / Writer</div><div class="resume-entry-note">Multi-cam comedy. In development.</div></div>
+                <div class="resume-entry"><div class="resume-entry-title">Oh Constantine!</div><div class="resume-entry-sub">Stage Musical / Writer and Director</div><div class="resume-entry-note">Hollywood Fringe Festival 2025. Zephyr Zest Award nominee.</div></div>
+                <div class="resume-entry"><div class="resume-entry-title">High Level Affection</div><div class="resume-entry-sub">Play / Writer and Director</div><div class="resume-entry-note">Society of the Cellar, 2025.</div></div>
+            </div>
+            <div class="resume-col">
+                <h3>Direction and Production</h3>
+                <div class="resume-entry"><div class="resume-entry-title">Scholastic Affair</div><div class="resume-entry-sub">Short Film / Director / 2024</div><div class="resume-entry-note">Thesis film. 9-minute dramatic thriller. Post-production.</div></div>
+                <div class="resume-entry"><div class="resume-entry-title">La Nina Que Sonrio</div><div class="resume-entry-sub">Short Film / Director / 2021</div></div>
+                <div class="resume-entry"><div class="resume-entry-title">The Bechdel Test</div><div class="resume-entry-sub">Short Film / Director / 2020</div></div>
+                <div class="resume-entry"><div class="resume-entry-title">Banshee</div><div class="resume-entry-sub">Short Film / Writer and Director / 2019</div></div>
+                <div class="resume-entry"><div class="resume-entry-title">Born A Snake</div><div class="resume-entry-sub">Short Film / Writer and Director / 2018</div></div>
+                <div class="resume-entry"><div class="resume-entry-title">Marie Antoinette by David Adjmi</div><div class="resume-entry-sub">Stage Production / Director / 2023</div></div>
+                <h3 style="margin-top:2rem;">Education</h3>
+                <div class="resume-entry"><div class="resume-entry-title">MFA, Film Directing</div><div class="resume-entry-sub">In progress</div></div>
             </div>
         </div>
-    </footer>
+        <div class="resume-note reveal">Full resume available upon request: <a href="mailto:contact@jandavidsoutar.com">contact@jandavidsoutar.com</a></div>
+    </div>
+</section>
 
-    <script>
-        // Mobile menu toggle
-        document.getElementById('menu-toggle').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+<!-- CONTACT -->
+<section id="contact">
+    <div class="container">
+        <div class="contact-grid">
+            <div class="reveal">
+                <div class="section-label">Get In Touch</div>
+                <h2 class="section-title">LET'S MAKE<br>SOMETHING<br>WEIRD</h2>
+                <p class="contact-intro">Script requests, writing collaborations, directing inquiries, fellowship applications, existential conversations. All of it welcome.</p>
+                <div class="contact-details">
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon"><i class="fas fa-envelope"></i></div>
+                        <div><div class="contact-detail-label">Email</div><div class="contact-detail-value"><a href="mailto:contact@jandavidsoutar.com">contact@jandavidsoutar.com</a></div></div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon"><i class="fab fa-instagram"></i></div>
+                        <div><div class="contact-detail-label">Instagram</div><div class="contact-detail-value"><a href="https://www.instagram.com/jandavidsoutar/" target="_blank">@jandavidsoutar</a></div></div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon"><i class="fab fa-imdb"></i></div>
+                        <div><div class="contact-detail-label">IMDb</div><div class="contact-detail-value"><a href="https://www.imdb.com/name/nm2387259/" target="_blank">Jan-David Soutar</a></div></div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon"><i class="fab fa-youtube"></i></div>
+                        <div><div class="contact-detail-label">Film Work</div><div class="contact-detail-value"><a href="https://www.mdlafilms.com" target="_blank">MDLA Films</a></div></div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon"><i class="fas fa-theater-masks"></i></div>
+                        <div><div class="contact-detail-label">Theater Company</div><div class="contact-detail-value"><a href="https://www.societyofthecellar.com" target="_blank">Society of the Cellar</a></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="reveal">
+                <form action="https://formspree.io/f/mnjbzlzo" method="POST" id="contactForm">
+                    <div class="form-group"><label class="form-label" for="cname">Name</label><input class="form-input" type="text" id="cname" name="name" required placeholder="Your name"></div>
+                    <div class="form-group"><label class="form-label" for="cemail">Email</label><input class="form-input" type="email" id="cemail" name="email" required placeholder="your@email.com"></div>
+                    <div class="form-group">
+                        <label class="form-label" for="ctype">Type of Inquiry</label>
+                        <select class="form-input" id="ctype" name="project-type">
+                            <option value="script">Script Request</option>
+                            <option value="writing">Writing Collaboration</option>
+                            <option value="directing">Directing</option>
+                            <option value="fellowship">Fellowship / Program</option>
+                            <option value="theater">Theater</option>
+                            <option value="other">Something Else Entirely</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label class="form-label" for="cmessage">Message</label><textarea class="form-input" id="cmessage" name="message" rows="5" required placeholder="Tell me about it."></textarea></div>
+                    <button type="submit" class="form-submit">Send It Into the Void</button>
+                    <p class="form-note">Jan-David will respond if the stars align.</p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <a href="#" class="footer-logo">JAN-DAVID SOUTAR<span>*</span></a>
+            <p class="footer-copy">2025 Jan-David Soutar. All weirdness preserved.</p>
+            <div class="footer-icons">
+                <a href="https://www.instagram.com/jandavidsoutar/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@mdlafilms" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.imdb.com/name/nm2387259/" target="_blank" aria-label="IMDb"><i class="fab fa-imdb"></i></a>
+                <a href="mailto:contact@jandavidsoutar.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // ========================
+    // MOBILE MENU
+    // ========================
+    function toggleMobile() {
+        document.getElementById('mobileMenu').classList.toggle('open');
+    }
+    function closeMobile() {
+        document.getElementById('mobileMenu').classList.remove('open');
+    }
+
+    // ========================
+    // SMOOTH SCROLL
+    // ========================
+    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+            var target = document.querySelector(a.getAttribute('href'));
+            if (target) {
                 e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    const mobileMenu = document.getElementById('mobile-menu');
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                    }
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                closeMobile();
+            }
+        });
+    });
+
+    // ========================
+    // WRITING SECTION — HOVER IMMERSIVE
+    // ========================
+    var writingSection = document.getElementById('writing');
+    var writingOverlay = document.getElementById('writing-overlay');
+    var writingBgs = {
+        blackpill: document.getElementById('bg-blackpill'),
+        firstdays: document.getElementById('bg-firstdays'),
+        malltrip:  document.getElementById('bg-malltrip')
+    };
+    var writingColors = {
+        blackpill: '#1a0f08',
+        firstdays: '#0d0500',
+        malltrip:  '#0a0320'
+    };
+
+    function activateWorld(world) {
+        Object.keys(writingBgs).forEach(function(k) {
+            writingBgs[k].classList.remove('active');
+        });
+        writingBgs[world].classList.add('active');
+        writingOverlay.classList.add('active');
+        writingSection.style.backgroundColor = writingColors[world];
+    }
+
+    function deactivateWorld() {
+        // only deactivate if no project is open
+        var anyOpen = document.querySelector('.project-item.open');
+        if (!anyOpen) {
+            Object.keys(writingBgs).forEach(function(k) {
+                writingBgs[k].classList.remove('active');
+            });
+            writingOverlay.classList.remove('active');
+            writingSection.style.backgroundColor = '';
+        }
+    }
+
+    // ========================
+    // WRITING — CLICK TO EXPAND
+    // ========================
+    function toggleProject(world) {
+        var item = document.getElementById('item-' + world);
+        var expand = document.getElementById('expand-' + world);
+        var isOpen = item.classList.contains('open');
+
+        document.querySelectorAll('.project-item').forEach(function(el) { el.classList.remove('open'); });
+        document.querySelectorAll('.project-expand').forEach(function(el) { el.style.maxHeight = '0'; });
+
+        if (!isOpen) {
+            item.classList.add('open');
+            expand.style.maxHeight = expand.scrollHeight + 'px';
+        }
+    }
+
+    // ========================
+    // DIRECTING — SCHOLASTIC AFFAIR HOVER
+    // ========================
+    var directingSection = document.getElementById('directing');
+    var directingBg = document.getElementById('bg-scholastic');
+    var directingOverlay = document.getElementById('directing-overlay');
+
+    function activateScholastic() {
+        directingBg.classList.add('active');
+        directingOverlay.classList.add('active');
+        directingSection.style.backgroundColor = '#0a0a12';
+    }
+    function deactivateScholastic() {
+        directingBg.classList.remove('active');
+        directingOverlay.classList.remove('active');
+        directingSection.style.backgroundColor = '';
+    }
+
+    // ========================
+    // SCROLL REVEAL
+    // ========================
+    var revealObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+            if (e.isIntersecting) e.target.classList.add('visible');
+        });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(function(el) { revealObs.observe(el); });
+
+    // ========================
+    // CONTACT FORM
+    // ========================
+    var form = document.getElementById('contactForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' }
+            }).then(function(r) {
+                if (r.ok) {
+                    alert('Message sent to the void. Jan-David will respond if the stars align.');
+                    form.reset();
+                } else {
+                    alert('The void is full. Try again or email directly.');
                 }
             });
         });
-        
-        // Add some fun to the form
-const form = document.querySelector('form');
-if (form) {
-form.addEventListener('submit', function(e) {
-e.preventDefault(); // Stop the page from redirecting
+    }
 
-// Send the data to Formspree in the background
-fetch(form.action, {
-method: 'POST',
-body: new FormData(form),
-headers: {
-'Accept': 'application/json'
-}
-}).then(response => {
-if (response.ok) {
-// Now show your fun message because we know it actually sent!
-alert('Message sent to the void! Jan-David will respond if the stars align.');
-form.reset();
-} else {
-alert('The void is full. Please try again later.');
-}
-});
-});
-}
+    // ========================
+    // RANDOM NEON BUTTON FLICKER
+    // Each button runs its own independent random timer
+    // ========================
+    (function() {
+        var selectors = [
+            '.btn-primary',
+            '.btn-secondary',
+            '.project-cta',
+            '.theater-link',
+            '.nav-cta',
+            '.form-submit'
+        ];
+
+        function flicker(el) {
+            // Don't flicker if user is hovering
+            if (el.matches(':hover')) {
+                scheduleNext(el);
+                return;
+            }
+
+            // Random number of rapid flashes: 1, 2, or 3
+            var flashes = Math.floor(Math.random() * 3) + 1;
+            var i = 0;
+
+            function doFlash() {
+                if (i >= flashes) {
+                    // Done flashing — back to normal
+                    el.style.filter = '';
+                    el.style.textShadow = '';
+                    scheduleNext(el);
+                    return;
+                }
+
+                // Flash ON
+                var intensity = 1.8 + Math.random() * 0.8; // 1.8 to 2.6
+                el.style.filter = 'brightness(' + intensity + ')';
+                el.style.textShadow = [
+                    '0 0 4px #fff',
+                    '0 0 12px var(--pink)',
+                    '0 0 28px var(--pink)',
+                    '0 0 50px rgba(232,19,93,0.4)'
+                ].join(', ');
+
+                // Flash duration: 40 to 100ms
+                var onTime = 40 + Math.random() * 60;
+                setTimeout(function() {
+                    // Flash OFF briefly between multi-flashes
+                    el.style.filter = 'brightness(0.9)';
+                    el.style.textShadow = '';
+
+                    var offTime = 30 + Math.random() * 50;
+                    setTimeout(function() {
+                        i++;
+                        doFlash();
+                    }, offTime);
+                }, onTime);
+            }
+
+            doFlash();
+        }
+
+        function scheduleNext(el) {
+            // Next flicker in 2 to 9 seconds, randomly
+            var delay = 2000 + Math.random() * 7000;
+            setTimeout(function() { flicker(el); }, delay);
+        }
+
+        // Start each button on its own random offset so nothing fires together
+        selectors.forEach(function(sel) {
+            document.querySelectorAll(sel).forEach(function(el) {
+                // Initial random delay so page load doesn't trigger them all at once
+                var initDelay = Math.random() * 5000;
+                setTimeout(function() { flicker(el); }, initDelay);
+            });
+        });
+    })();
+
     </script>
-
+</body>
 </html>
